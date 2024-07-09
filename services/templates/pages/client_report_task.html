@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Project | {{ page }}</title>
+
+    <!-- Styles -->
+    {% include "../layouts/styles.html" %}
+</head>
+<body>
+    <div class="page page-center">
+        <form class="container container-tight py-4" method="POST">
+            {% csrf_token %}
+            <div class="card card-md">
+                <div class="card-body text-center py-4 p-sm-5">
+                    <h1 class="mt-5">Report terminer!</h1>
+                    <h3 class="mt-2">Le score est de {{ client.first_name }} {{ client.last_name }} est : {{ report.overall_score }}/20</h3>
+                    <p class="text-secondary">Assignez une tache au client maintenant. Cette tache lui sera envoyer par mail au {{ client.email }}</p>
+                </div>
+                <div class="hr-text hr-text-center hr-text-spaceless">votre tache</div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <label class="form-label">Titre</label>
+                        <div class="input-group input-group-flat">
+                            <input type="text" class="form-control ps-1" name="title" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-2">
+                                <label class="form-label">Date limite</label>
+                                <div class="input-group input-group-flat">
+                                    <input type="date" class="form-control ps-1" name="due_date" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-2">
+                                <label class="form-label">Priorité</label>
+                                <select class="form-select" name="priority">
+                                    <option value="Hight" selected>Hight</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="desc" row="3" required></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col-4">
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 75%" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="75% Complete">
+                            <span class="visually-hidden">75% Complete</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="btn-list justify-content-end">
+                        <button type="submit" class="btn btn-primary">Assign</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- Scripts -->
+    {% include "../layouts/scripts.html" %}
+</body>
+</html>

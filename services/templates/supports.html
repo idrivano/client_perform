@@ -1,0 +1,143 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Project | {{ page }}</title>
+
+    <!-- Styles -->
+    {% include "./layouts/styles.html" %}
+</head>
+<body>
+    <div class="page">
+        <!-- Header -->
+        {% include "./layouts/header.html" %}
+
+        <div class="page-wrapper">
+            <!-- Page header -->
+            <div class="page-header d-print-none">
+                <div class="container-xl">
+                    <div class="row g-2 align-items-center">
+                        <div class="col">
+                            <!-- Page pre-title -->
+                            <div class="page-pretitle">Overview</div>
+                            <h2 class="page-title">Supports</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page body -->
+            <div class="page-body">
+                <div class="container-xl">
+                    <div class="row row-deck row-cards">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Lists</h3>
+                                </div>
+                                <div class="card-body border-bottom py-3">
+                                    <div class="d-flex">
+                                        <div class="ms-auto text-secondary">
+                                            Search:
+                                            <div class="ms-2 d-inline-block">
+                                                <input type="text" class="form-control form-control-sm" aria-label="Search...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table card-table table-vcenter text-nowrap datatable">
+                                        <thead>
+                                            <tr>
+                                                <th class="w-1">No.
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm icon-thick" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 15l6 -6l6 6" /></svg>
+                                                </th>
+                                                <th>Client</th>
+                                                <th>Temps</th>
+                                                <th>Desc</th>
+                                                <th>Status</th>
+                                                <th>Created</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for support in supports %}
+                                                <tr>
+                                                    <td><span class="text-secondary">{{ forloop.counter }}</span></td>
+                                                    <td>{{ support.client.first_name }} {{ support.client.last_name }}</td>
+                                                    <td>{{ support.time }}</td>
+                                                    <td>{{ support.desc }}</td>
+                                                    <td>
+                                                        {% if support.resolved == 1 %}
+                                                            <span class="badge bg-success me-1"></span> Resolved
+                                                        {% else %}
+                                                            <span class="badge bg-success me-1"></span> Not Resolved
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{ support.created }}</td>
+                                                    <td class="text-end">
+                                                        <a href="" class="btn btn-sm btn-outline-info">
+                                                            <img src="{% static "icons/info.svg" %}" alt="" srcset="">
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% empty %}
+                                                <tr>
+                                                    <th scope="row">
+                                                        <span class="mb-0 text-sm">Aucun support trouvée dans la base</span>
+                                                    </th>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="card-footer d-flex align-items-center">
+                                    <p class="m-0 text-secondary">Showing <span>1</span> results</p>
+                                    <ul class="pagination m-0 ms-auto">
+                                        {% if supports.has_previous %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="{% url 'supports' %}?page={{ supports.previous_page_number }}" tabindex="-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6" /></svg>
+                                                    Prev
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        
+                                        {% for page_number in supports.paginator.page_range %}
+                                            {% if supports.number == page_number %}
+                                                <li class="page-item active">
+                                                    <a class="page-link" href="{% url 'supports' %}?page={{ page_number }}">{{ page_number }}</a>
+                                                </li>
+                                            {% else %}
+                                                <li class="page-item">
+                                                    <a class="page-link" href="{% url 'supports' %}?page={{ page_number }}">{{ page_number }}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        
+                                        {% if supports.has_next %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="{% url 'supports' %}?page={{ supports.next_page_number }}">
+                                                    <i class="fas fa-angle-right"></i>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            {% include "./layouts/footer.html" %}
+        </div>
+    </div>
+ 
+    <!-- Scripts -->
+    {% include "./layouts/scripts.html" %}
+</body>
+</html>

@@ -1,0 +1,252 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Project | {{ page }}</title>
+
+    <!-- Styles -->
+    {% include "../layouts/styles.html" %}
+</head>
+<body>
+    <div class="page">
+        <!-- Header -->
+        {% include "../layouts/header.html" %}
+
+        <div class="page-wrapper">
+            <!-- Page header -->
+            <div class="page-header d-print-none">
+                <div class="container-xl">
+                    <div class="row g-2 align-items-center">
+                        <div class="col">
+                            <!-- Page pre-title -->
+                            <div class="page-pretitle">{{client.first_name}} {{client.last_name}} - {{client.email}}</div>
+                            <h2 class="page-title">Clients</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page body -->
+            <div class="page-body">
+                <div class="container-xl">
+                    <div class="row row-deck row-cards">
+                        <div class="col-12">
+
+                            <form class="card" method="POST">
+                                {% csrf_token %}
+                                <div class="card-header">
+                                    <h3 class="card-title">Clients and score</h3>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="timeline">
+                                        <li class="timeline-event">
+                                            <div class="timeline-event-icon bg-twitter-lt">
+                                                <img src="{% static "icons/user.svg" %}" alt="" srcset="">
+                                            </div>
+                                            <div class="card timeline-event-card">
+                                                <div class="card-body">
+                                                    <div class="float-end">
+                                                        <div class="mb-3">
+                                                            <div class="row g-2">
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="loyalty_score" type="radio" value="1" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-pink rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="loyalty_score" type="radio" value="2" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-red rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="loyalty_score" type="radio" value="3" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-orange rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="loyalty_score" type="radio" value="4" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-yellow rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto text-center">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="loyalty_score" type="radio" value="5" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-lime rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                          </div>                                                        
+                                                    </div>
+                                                    <h4>Fidélisation</h4>
+                                                    <p class="text-secondary">Client depuis {{ client.created }}!</p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="timeline-event">
+                                            <div class="timeline-event-icon">
+                                                <img src="{% static "icons/package.svg" %}" alt="" srcset="">
+                                            </div>
+                                            <div class="card timeline-event-card">
+                                                <div class="card-body">
+                                                    <div class="float-end">
+                                                        <div class="mb-3">
+                                                            <div class="row g-2">
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="purchases_score" type="radio" value="1" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-pink rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="purchases_score" type="radio" value="2" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-red rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="purchases_score" type="radio" value="3" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-orange rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="purchases_score" type="radio" value="4" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-yellow rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto text-center">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="purchases_score" type="radio" value="5" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-lime rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>                                                        
+                                                    </div>
+                                                    <h4>Achats</h4>
+                                                    <p class="text-secondary">+{{ orders }} Achats éffectuer!</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-event">
+                                            <div class="timeline-event-icon">
+                                                <img src="{% static "icons/refresh.svg" %}" alt="" srcset="">
+                                            </div>
+                                            <div class="card timeline-event-card">
+                                                <div class="card-body">
+                                                    <div class="float-end">
+                                                        <div class="mb-3">
+                                                            <div class="row g-2">
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="services_score" type="radio" value="1" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-pink rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="services_score" type="radio" value="2" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-red rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="services_score" type="radio" value="3" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-orange rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="services_score" type="radio" value="4" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-yellow rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto text-center">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="services_score" type="radio" value="5" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-lime rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>                                                        
+                                                    </div>
+                                                    <h4>Utilisation des Services</h4>
+                                                    <p class="text-secondary">+{{ services }} Reparation effectuer au SAV.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-event">
+                                            <div class="timeline-event-icon bg-facebook-lt">
+                                                <img src="{% static "icons/message.svg" %}" alt="" srcset="">
+                                            </div>
+                                            <div class="card timeline-event-card">
+                                                <div class="card-body">
+                                                    <div class="float-end">
+                                                        <div class="mb-3">
+                                                            <div class="row g-2">
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="engagement_score" type="radio" value="1" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-pink rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="engagement_score" type="radio" value="2" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-red rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="engagement_score" type="radio" value="3" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-orange rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="engagement_score" type="radio" value="4" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-yellow rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-auto text-center">
+                                                                    <label class="form-colorinput">
+                                                                        <input name="engagement_score" type="radio" value="5" class="form-colorinput-input">
+                                                                        <span class="form-colorinput-color bg-lime rounded-circle"></span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>                                                        
+                                                    </div>
+                                                    <h4>Engagement</h4>
+                                                    <p class="text-secondary">+{{ supports }} Interventions demandé et réglé!</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>                                      
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary ms-auto float-end">Save</button>
+                                </div>
+                            </div>
+                              
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            {% include "../layouts/footer.html" %}
+        </div>
+    </div>
+ 
+    <!-- Scripts -->
+    {% include "../layouts/scripts.html" %}
+</body>
+</html>

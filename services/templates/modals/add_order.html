@@ -1,0 +1,42 @@
+
+{% for product in products %}
+<div class="modal modal-blur fade" id="modal-add-order-{{forloop.counter}}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <form class="modal-content" method="POST" action="{% url "product_order" product.id %}">
+            {% csrf_token %}
+            <div class="modal-header">
+                <h5 class="modal-title">Add Order Client</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Clients</label>
+                    <select class="form-select select-search" name="client">
+                        <option default>Selectionner</option>
+                        {% for client in clients %}
+                            <option value="{{ client.id }}">{{ client.first_name }} {{ client.last_name }} - {{ client.email }}</option>
+                        {% empty %}
+                            <option>Aucun client trouvée dans la base</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Quantité</label>
+                    <div class="input-group input-group-flat">
+                        <span class="input-group-text">Unité </span>
+                        <input type="number" class="form-control" placeholder="Quantité" name="quantity">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">Cancel</a>
+                <button type="submit" class="btn btn-primary ms-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endfor %}
